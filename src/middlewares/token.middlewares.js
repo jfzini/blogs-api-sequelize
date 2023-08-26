@@ -5,7 +5,8 @@ const checkToken = (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
     }
-    const decoded = validateToken(token);
+    const [, tokenValue] = token.split(' ');
+    const decoded = validateToken(tokenValue);
 
     if (!decoded) {
       return res.status(401).json({ message: 'Expired or invalid token' });
