@@ -9,9 +9,9 @@ module.exports = {
           key: 'id',
         },
         allowNull: false,
-        defaultValue: 1,
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+        primaryKey: true,
       },
       category_id: {
         type: Sequelize.INTEGER,
@@ -20,9 +20,9 @@ module.exports = {
           key: 'id',
         },
         allowNull: false,
-        defaultValue: 1,
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+        primaryKey: true,
       },
     });
   },

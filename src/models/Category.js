@@ -1,5 +1,10 @@
+/**
+ * 
+ * @param {import('sequelize').Sequelize} sequelize 
+ * @param {import('sequelize').DataTypes} DataTypes 
+ */
 const CategoryModel = (sequelize, DataTypes) => {
-  const Product = sequelize.define(
+  const Category = sequelize.define(
     'Category',
     {
       id: {
@@ -18,7 +23,7 @@ const CategoryModel = (sequelize, DataTypes) => {
       underscored: true,
     },
   );
-  return Product;
+  return Category;
 };
 
 module.exports = CategoryModel;

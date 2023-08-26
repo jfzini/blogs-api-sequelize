@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {import('sequelize').Sequelize} sequelize 
+ * @param {import('sequelize').DataTypes} DataTypes 
+ */
 const BlogPostModel = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define(
     'BlogPost',
