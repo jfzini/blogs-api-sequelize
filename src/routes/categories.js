@@ -6,6 +6,7 @@ const CategoriesRouter = express.Router();
 
 CategoriesRouter.use(TokenMiddlewares.checkToken);
 
+CategoriesRouter.get('/', CategoriesController.findAllCategories);
 CategoriesRouter.post('/', CategoriesMiddlewares.validateName, CategoriesController.createCategory);
 
 module.exports = CategoriesRouter;
