@@ -34,6 +34,7 @@ const BlogPostModel = (sequelize, DataTypes) => {
     },
     {
       tableName: 'blog_posts',
+      timestamps: false,
       underscored: true,
     },
   );
