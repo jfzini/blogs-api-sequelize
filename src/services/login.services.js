@@ -1,10 +1,16 @@
+const { generateToken } = require('../auth/token.jwt');
 const { User } = require('../models');
 
-const findUser = async (email) => {
+const login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
-  return user;
+  if (!user || user.password !== password) {
+    return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
+  }
+  delete user.dataValues.password;
+  const token = generateToken(user.dataValues);
+  return { status: 'SUCESSFUL', data: { token } };
 };
 
 module.exports = {
-  findUser,
+  login,
 };
