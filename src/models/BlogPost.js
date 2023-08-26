@@ -1,7 +1,7 @@
 /**
- * 
- * @param {import('sequelize').Sequelize} sequelize 
- * @param {import('sequelize').DataTypes} DataTypes 
+ *
+ * @param {import('sequelize').Sequelize} sequelize
+ * @param {import('sequelize').DataTypes} DataTypes
  */
 const BlogPostModel = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define(
@@ -11,7 +11,7 @@ const BlogPostModel = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       title: {
         type: DataTypes.STRING,
@@ -44,8 +44,8 @@ const BlogPostModel = (sequelize, DataTypes) => {
     },
   );
 
-  BlogPost.associate = (models) => {
-    BlogPost.belongsTo(models.User, {
+  BlogPost.associate = ({ User }) => {
+    BlogPost.belongsTo(User, {
       foreignKey: 'userId',
       as: 'user',
     });

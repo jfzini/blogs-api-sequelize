@@ -1,7 +1,7 @@
 /**
- * 
- * @param {import('sequelize').Sequelize} sequelize 
- * @param {import('sequelize').DataTypes} DataTypes 
+ *
+ * @param {import('sequelize').Sequelize} sequelize
+ * @param {import('sequelize').DataTypes} DataTypes
  */
 const UserModel = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -24,7 +24,7 @@ const UserModel = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull:false,
+        allowNull: false,
       },
       image: {
         type: DataTypes.STRING,
@@ -37,8 +37,8 @@ const UserModel = (sequelize, DataTypes) => {
     },
   );
 
-  User.associate = (models) => {
-    User.hasMany(models.BlogPost, {
+  User.associate = ({ BlogPost }) => {
+    User.hasMany(BlogPost, {
       foreignKey: 'userId',
       as: 'blogPosts',
     });

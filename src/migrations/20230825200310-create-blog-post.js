@@ -9,10 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false,
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false,
       },
       user_id: {
         type: Sequelize.INTEGER,
@@ -26,10 +28,12 @@ module.exports = {
         onUpdate: 'CASCADE',
       },
       published: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
       updated: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
     });
   },
