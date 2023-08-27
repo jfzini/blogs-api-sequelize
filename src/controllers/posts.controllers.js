@@ -19,6 +19,12 @@ const createPost = async (req, res) => {
   return res.status(statusHTTP[result.status]).json(result.data);
 };
 
+const findAllPosts = async (_req, res) => {
+  const result = await PostsService.findAllPosts();
+  return res.status(statusHTTP[result.status]).json(result.data);
+};
+
 module.exports = {
   createPost,
+  findAllPosts,
 };
