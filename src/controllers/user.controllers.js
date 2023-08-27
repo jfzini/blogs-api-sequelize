@@ -17,8 +17,18 @@ const findUserById = async (req, res) => {
   return res.status(statusHTTP[result.status]).json(result.data);
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.user;
+  if (!id) {
+    return res.status(statusHTTP.BAD_REQUEST).json({ message: 'Login invalid, try relogging' });
+  }
+  const result = await UserService.deleteUser(id);
+  return res.status(statusHTTP[result.status]).end();
+};
+
 module.exports = {
   createUser,
   findAllUsers,
   findUserById,
+  deleteUser,
 };

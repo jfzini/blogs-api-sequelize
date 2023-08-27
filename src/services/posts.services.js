@@ -58,7 +58,6 @@ const deletePost = async (id, user) => {
   if (!originalPost) {
     return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
   }
-  console.log(originalPost);
   if (originalPost.userId !== user.id) {
     return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
   }

@@ -10,5 +10,6 @@ UserRouter.use(TokenMiddlewares.checkToken);
 
 UserRouter.get('/', UserController.findAllUsers);
 UserRouter.get('/:id', UserController.findUserById);
+UserRouter.delete('/me', UserController.deleteUser);
 
 module.exports = UserRouter;
