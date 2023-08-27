@@ -26,7 +26,6 @@ const BlogPostModel = (sequelize, DataTypes) => {
           key: 'id',
         },
         allowNull: false,
-        defaultValue: 1,
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },

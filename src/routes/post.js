@@ -10,5 +10,6 @@ PostRouter.get('/', PostsController.findAllPosts);
 PostRouter.get('/:id', PostsController.findPostById);
 PostRouter.post('/', PostsMiddlewares.validateCreation, PostsController.createPost);
 PostRouter.put('/:id', PostsMiddlewares.validateUpdate, PostsController.updatePost);
+PostRouter.delete('/:id', PostsController.deletePost);
 
 module.exports = PostRouter;

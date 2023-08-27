@@ -3,6 +3,8 @@ const statusHTTP = require('./utils/statusHTTP');
 
 const createPost = async (req, res) => {
   const { categoryIds, ...post } = req.body;
+  const { id } = req.user;
+  post.userId = id;
   const categoriesPromisses = categoryIds.map(async (categoryId) => {
     const { status } = await CategoriesService.findCategoryById(categoryId);
     return status;
@@ -14,7 +16,6 @@ const createPost = async (req, res) => {
       .status(statusHTTP.BAD_REQUEST)
       .json({ message: 'one or more "categoryIds" not found' });
   }
-
   const result = await PostsService.createPost(post, categoryIds);
   return res.status(statusHTTP[result.status]).json(result.data);
 };
@@ -32,12 +33,16 @@ const findPostById = async (req, res) => {
 
 const updatePost = async (req, res) => {
   const { id } = req.params;
-  const [, token] = req.headers.authorization.split(' ');
-  const foundPost = await PostsService.findPostById(id);
-  if (foundPost.status === 'NOT_FOUND') {
-    return res.status(statusHTTP.NOT_FOUND).json(foundPost.data);
+  const result = await PostsService.updatePost(id, req.body, req.user);
+  return res.status(statusHTTP[result.status]).json(result.data);
+};
+
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const result = await PostsService.deletePost(id, req.user);
+  if (result.status === 'NO_CONTENT') {
+    return res.status(statusHTTP[result.status]).end();
   }
-  const result = await PostsService.updatePost(id, req.body, token);
   return res.status(statusHTTP[result.status]).json(result.data);
 };
 
@@ -46,4 +51,5 @@ module.exports = {
   findAllPosts,
   findPostById,
   updatePost,
+  deletePost,
 };

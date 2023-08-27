@@ -1,4 +1,3 @@
-const { validateToken } = require('../auth/token.jwt');
 const { BlogPost, PostCategory, User, Category, sequelize } = require('../models');
 
 const createPost = async (post, categories) => {
@@ -39,10 +38,12 @@ const findPostById = async (id) => {
   return { status: 'SUCESSFUL', data: result };
 };
 
-const updatePost = async (id, { title, content }, token) => {
-  const decoded = validateToken(token);
-  const originalPost = await findPostById(id);
-  if (originalPost.data.user.id !== decoded.id) {
+const updatePost = async (id, { title, content }, user) => {
+  const originalPost = await BlogPost.findByPk(id);
+  if (!originalPost) {
+    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  }
+  if (originalPost.userId !== user.id) {
     return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
   }
 
@@ -52,9 +53,24 @@ const updatePost = async (id, { title, content }, token) => {
   return { status: 'SUCESSFUL', data: updatedPost.data };
 };
 
+const deletePost = async (id, user) => {
+  const originalPost = await BlogPost.findByPk(id);
+  if (!originalPost) {
+    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  }
+  console.log(originalPost);
+  if (originalPost.userId !== user.id) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+  }
+
+  await BlogPost.destroy({ where: { id } });
+  return { status: 'NO_CONTENT' };
+};
+
 module.exports = {
   createPost,
   findAllPosts,
   findPostById,
   updatePost,
+  deletePost,
 };

@@ -7,10 +7,10 @@ const checkToken = (req, res, next) => {
     }
     const [, tokenValue] = token.split(' ');
     const decoded = validateToken(tokenValue);
-
     if (!decoded) {
       return res.status(401).json({ message: 'Expired or invalid token' });
     }
+    req.user = decoded;
     
     next();
 };
