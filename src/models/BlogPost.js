@@ -32,9 +32,13 @@ const BlogPostModel = (sequelize, DataTypes) => {
       },
       published: {
         type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+        allowNull: false,
       },
       updated: {
         type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+        allowNull: false,
       },
     },
     {
@@ -44,7 +48,7 @@ const BlogPostModel = (sequelize, DataTypes) => {
     },
   );
 
-  BlogPost.associate = ({ User }) => {
+  BlogPost.associate = ({ User, PostCategory }) => {
     BlogPost.belongsTo(User, {
       foreignKey: 'userId',
       as: 'user',
