@@ -30,8 +30,20 @@ const findPostById = async (req, res) => {
   return res.status(statusHTTP[result.status]).json(result.data);
 };
 
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const [, token] = req.headers.authorization.split(' ');
+  const foundPost = await PostsService.findPostById(id);
+  if (foundPost.status === 'NOT_FOUND') {
+    return res.status(statusHTTP.NOT_FOUND).json(foundPost.data);
+  }
+  const result = await PostsService.updatePost(id, req.body, token);
+  return res.status(statusHTTP[result.status]).json(result.data);
+};
+
 module.exports = {
   createPost,
   findAllPosts,
   findPostById,
+  updatePost,
 };

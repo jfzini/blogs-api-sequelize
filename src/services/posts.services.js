@@ -1,3 +1,4 @@
+const { validateToken } = require('../auth/token.jwt');
 const { BlogPost, PostCategory, User, Category, sequelize } = require('../models');
 
 const createPost = async (post, categories) => {
@@ -38,8 +39,22 @@ const findPostById = async (id) => {
   return { status: 'SUCESSFUL', data: result };
 };
 
+const updatePost = async (id, { title, content }, token) => {
+  const decoded = validateToken(token);
+  const originalPost = await findPostById(id);
+  if (originalPost.data.user.id !== decoded.id) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+  }
+
+  const updateData = { title, content, updated: new Date() };
+  await BlogPost.update(updateData, { where: { id } });
+  const updatedPost = await findPostById(id);
+  return { status: 'SUCESSFUL', data: updatedPost.data };
+};
+
 module.exports = {
   createPost,
   findAllPosts,
   findPostById,
+  updatePost,
 };

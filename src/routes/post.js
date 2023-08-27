@@ -8,6 +8,7 @@ PostRouter.use(TokenMiddlewares.checkToken);
 
 PostRouter.get('/', PostsController.findAllPosts);
 PostRouter.get('/:id', PostsController.findPostById);
-PostRouter.post('/', PostsMiddlewares.validateFields, PostsController.createPost);
+PostRouter.post('/', PostsMiddlewares.validateCreation, PostsController.createPost);
+PostRouter.put('/:id', PostsMiddlewares.validateUpdate, PostsController.updatePost);
 
 module.exports = PostRouter;
