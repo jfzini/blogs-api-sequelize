@@ -7,6 +7,7 @@ const PostRouter = express.Router();
 PostRouter.use(TokenMiddlewares.checkToken);
 
 PostRouter.get('/', PostsController.findAllPosts);
+PostRouter.get('/search', PostsController.findPostByQuery);
 PostRouter.get('/:id', PostsController.findPostById);
 PostRouter.post('/', PostsMiddlewares.validateCreation, PostsController.createPost);
 PostRouter.put('/:id', PostsMiddlewares.validateUpdate, PostsController.updatePost);
