@@ -1,11 +1,13 @@
-/**
- *
- * @param {import('sequelize').Sequelize} sequelize
- * @param {import('sequelize').DataTypes} DataTypes
- */
-const UserModel = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    'User',
+const { Model } = require('sequelize');
+
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {}
+
+  /**
+   * @param {import('sequelize').Sequelize} sequelize
+   * @param {import('sequelize').DataTypes} DataTypes
+   * */
+  User.init(
     {
       id: {
         allowNull: false,
@@ -31,6 +33,8 @@ const UserModel = (sequelize, DataTypes) => {
       },
     },
     {
+      sequelize,
+      modelName: 'User',
       tableName: 'users',
       timestamps: false,
       underscored: true,
@@ -46,5 +50,3 @@ const UserModel = (sequelize, DataTypes) => {
 
   return User;
 };
-
-module.exports = UserModel;

@@ -1,11 +1,13 @@
-/**
- *
- * @param {import('sequelize').Sequelize} sequelize
- * @param {import('sequelize').DataTypes} DataTypes
- */
-const BlogPostModel = (sequelize, DataTypes) => {
-  const BlogPost = sequelize.define(
-    'BlogPost',
+const { Model } = require('sequelize');
+
+module.exports = (sequelize, DataTypes) => {
+  class BlogPost extends Model {}
+
+  /**
+   * @param {import('sequelize').Sequelize} sequelize
+   * @param {import('sequelize').DataTypes} DataTypes
+   * */
+  BlogPost.init(
     {
       id: {
         allowNull: false,
@@ -41,13 +43,15 @@ const BlogPostModel = (sequelize, DataTypes) => {
       },
     },
     {
+      sequelize,
+      modelName: 'BlogPost',
       tableName: 'blog_posts',
       timestamps: false,
       underscored: true,
     },
   );
 
-  BlogPost.associate = ({ User, PostCategory }) => {
+  BlogPost.associate = ({ User }) => {
     BlogPost.belongsTo(User, {
       foreignKey: 'userId',
       as: 'user',
@@ -56,5 +60,3 @@ const BlogPostModel = (sequelize, DataTypes) => {
 
   return BlogPost;
 };
-
-module.exports = BlogPostModel;
