@@ -1,7 +1,7 @@
-const LoginRouter = require('./login');
-const UserRouter = require('./user');
-const CategoriesRouter = require('./categories');
-const PostRouter = require('./post');
+const LoginRouter = require('./login.routes');
+const UserRouter = require('./user.routes');
+const CategoriesRouter = require('./categories.routes');
+const PostRouter = require('./post.routes');
 
 module.exports = {
   LoginRouter,
