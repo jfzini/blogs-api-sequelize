@@ -1,13 +1,11 @@
-const { Model } = require('sequelize');
-
-module.exports = (sequelize, DataTypes) => {
-  class PostCategory extends Model {}
-
-  /**
-   * @param {import('sequelize').Sequelize} sequelize
-   * @param {import('sequelize').DataTypes} DataTypes
-   * */
-  PostCategory.init(
+/**
+ *
+ * @param {import('sequelize').Sequelize} sequelize
+ * @param {import('sequelize').DataTypes} DataTypes
+ */
+const PostCategoryModel = (sequelize, DataTypes) => {
+  const PostCategory = sequelize.define(
+    'PostCategory',
     {
       postId: {
         type: DataTypes.INTEGER,
@@ -33,14 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      sequelize,
-      modelName: 'PostCategory',
       tableName: 'posts_categories',
       timestamps: false,
       underscored: true,
     },
   );
-
   PostCategory.associate = ({ BlogPost, Category }) => {
     BlogPost.belongsToMany(Category, {
       through: PostCategory,
@@ -48,7 +43,6 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: 'categoryId',
       as: 'categories',
     });
-
     Category.belongsToMany(BlogPost, {
       through: PostCategory,
       foreignKey: 'categoryId',
@@ -59,3 +53,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return PostCategory;
 };
+
+module.exports = PostCategoryModel;

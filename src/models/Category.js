@@ -1,13 +1,11 @@
-const { Model } = require('sequelize');
-
-module.exports = (sequelize, DataTypes) => {
-  class Category extends Model {}
-
-  /**
-   * @param {import('sequelize').Sequelize} sequelize
-   * @param {import('sequelize').DataTypes} DataTypes
-   */
-  Category.init(
+/**
+ *
+ * @param {import('sequelize').Sequelize} sequelize
+ * @param {import('sequelize').DataTypes} DataTypes
+ */
+const CategoryModel = (sequelize, DataTypes) => {
+  const Category = sequelize.define(
+    'Category',
     {
       id: {
         allowNull: false,
@@ -20,13 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      sequelize,
-      modelName: 'Category',
       tableName: 'categories',
       timestamps: false,
       underscored: true,
     },
   );
-
   return Category;
 };
+
+module.exports = CategoryModel;
