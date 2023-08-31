@@ -47,7 +47,7 @@ const BlogPostModel = (sequelize, DataTypes) => {
     },
   );
 
-  BlogPost.associate = ({ User, PostCategory }) => {
+  BlogPost.associate = ({ User }) => {
     BlogPost.belongsTo(User, {
       foreignKey: 'userId',
       as: 'user',
